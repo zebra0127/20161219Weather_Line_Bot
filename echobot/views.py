@@ -25,7 +25,7 @@ def callback(request):
         except LineBotApiError:
             return HttpResponseBadRequest()
         count = 60
-        b = ""
+        reply = ""
         city = "臺南市"
         try:
             url_str = 'http://opendata.cwb.gov.tw/opendataapi?dataid=F-C0032-001&authorizationkey=CWB-9C36ED08-5B28-4D07-8B91-2664777A075D'
@@ -104,12 +104,12 @@ def callback(request):
                         elif "連江" in event.message.text or "馬祖" in event.message.text:
                             count = 315
                             city = "連江縣"
-                        b = city + "的天氣是" + w_values[count].firstChild.nodeValue
+                        reply = city + "的天氣是" + w_values[count].firstChild.nodeValue
                     else:
-                        b = event.message.text
+                        reply = event.message.text
                     line_bot_api.reply_message(
                         event.reply_token,
-                        TextSendMessage(text=b)#event.message.text)
+                        TextSendMessage(text=reply)#event.message.text)
                     )
 
         return HttpResponse()
