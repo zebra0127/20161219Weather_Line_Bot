@@ -27,7 +27,7 @@ def callback(request):
         a = "123"
         try:
             url_str = 'http://opendata.cwb.gov.tw/opendataapi?dataid=F-C0032-001&authorizationkey=CWB-9C36ED08-5B28-4D07-8B91-2664777A075D'
-            xml_str = urlopen(url_str)
+            xml_str = urlopen(url_str).read()
             a = "456"
             xmldoc = minidom.parseString(xml_str)
             a = "789"
