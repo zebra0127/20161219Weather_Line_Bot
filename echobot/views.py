@@ -15,7 +15,8 @@ def callback(request):
     if request.method == 'POST':
         signature = request.META['HTTP_X_LINE_SIGNATURE']
         body = request.body.decode('utf-8')
-
+		k = "http://opendata.cwb.gov.tw/opendataapi?dataid=F-C0032-001&authorizationkey=CWB-9C36ED08-5B28-4D07-8B91-2664777A075D"
+        res = requests.get(k)
         try:
             events = parser.parse(body, signature)
         except InvalidSignatureError:
