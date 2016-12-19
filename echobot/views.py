@@ -23,13 +23,18 @@ def callback(request):
             return HttpResponseForbidden()
         except LineBotApiError:
             return HttpResponseBadRequest()
-
-        url_str = 'http://opendata.cwb.gov.tw/opendataapi?dataid=F-C0032-001&authorizationkey=CWB-9C36ED08-5B28-4D07-8B91-2664777A075D'
-        xml_str = urllib.urlopen(url_str).read()
-        xmldoc = minidom.parseString(xml_str)
-        obs_values = xmldoc.getElementsByTagName('locationName')
-        # prints the first base:OBS_VALUE it finds
-        a = obs_values[0].firstChild.nodeValue
+        a = "123"
+        try:
+            url_str = 'http://opendata.cwb.gov.tw/opendataapi?dataid=F-C0032-001&authorizationkey=CWB-9C36ED08-5B28-4D07-8B91-2664777A075D'
+            xml_str = urllib.urlopen(url_str).read()
+            a = "456"
+            xmldoc = minidom.parseString(xml_str)
+            a = "789"
+            obs_values = xmldoc.getElementsByTagName('locationName')
+            a = "012"
+            a = obs_values[0].firstChild.nodeValue
+        except:
+            pass
         for event in events:
             if isinstance(event, MessageEvent):
                 if isinstance(event.message, TextMessage):
