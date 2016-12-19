@@ -1,7 +1,8 @@
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden
 from django.views.decorators.csrf import csrf_exempt
-import requests
+from xml.dom import minidom
+import urllib
 from linebot import LineBotApi, WebhookParser
 from linebot.exceptions import InvalidSignatureError, LineBotApiError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
@@ -23,11 +24,12 @@ def callback(request):
         except LineBotApiError:
             return HttpResponseBadRequest()
 
-        k = "http://opendata.cwb.gov.tw/opendataapi?dataid=F-C0032-001&authorizationkey=CWB-9C36ED08-5B28-4D07-8B91-2664777A075D"
-        res = requests.get(k)
-        a = "123"
-        if res.text != None:
-            a = "456"
+        url_str = 'http://opendata.cwb.gov.tw/opendataapi?dataid=F-C0032-001&authorizationkey=CWB-9C36ED08-5B28-4D07-8B91-2664777A075D'
+        xml_str = urllib.urlopen(url_str).read()
+        xmldoc = minidom.parseString(xml_str)
+        obs_values = xmldoc.getElementsByTagName('locationName')
+        # prints the first base:OBS_VALUE it finds
+        a = obs_values[0].firstChild.nodeValue
         for event in events:
             if isinstance(event, MessageEvent):
                 if isinstance(event.message, TextMessage):
