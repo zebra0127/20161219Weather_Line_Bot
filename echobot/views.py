@@ -15,7 +15,7 @@ def callback(request):
     if request.method == 'POST':
         signature = request.META['HTTP_X_LINE_SIGNATURE']
         body = request.body.decode('utf-8')
-        
+
         try:
             events = parser.parse(body, signature)
         except InvalidSignatureError:
@@ -31,8 +31,7 @@ def callback(request):
                 if isinstance(event.message, TextMessage):
                     line_bot_api.reply_message(
                         event.reply_token,
-                        #TextSendMessage(text=event.message.text)
-                        TextSendMessage(text=res.text)
+                        TextSendMessage(text=event.message.text)
                     )
 
         return HttpResponse()
