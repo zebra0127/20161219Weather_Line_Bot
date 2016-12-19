@@ -32,7 +32,7 @@ def callback(request):
                     line_bot_api.reply_message(
                         event.reply_token,
                         #TextSendMessage(text=event.message.text)
-                        TextSendMessage(text=event.res.text)
+                        TextSendMessage(text=res.text)
                     )
 
         return HttpResponse()
