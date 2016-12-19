@@ -24,14 +24,14 @@ def callback(request):
             return HttpResponseForbidden()
         except LineBotApiError:
             return HttpResponseBadRequest()
-        a = 60
+        count = 60
         b = ""
         c = "臺南市"
         try:
             url_str = 'http://opendata.cwb.gov.tw/opendataapi?dataid=F-C0032-001&authorizationkey=CWB-9C36ED08-5B28-4D07-8B91-2664777A075D'
             xml_str = urlopen(url_str).read()
             xmldoc = minidom.parseString(xml_str)
-            obs_values2 = xmldoc.getElementsByTagName('parameterName')
+            w_values = xmldoc.getElementsByTagName('parameterName')
         except:
             pass
         for event in events:
@@ -39,72 +39,72 @@ def callback(request):
                 if isinstance(event.message, TextMessage):
                     if "天氣" in event.message.text:
                         if "臺北" in event.message.text or "台北" in event.message.text:
-                            a = 0
+                            count = 0
                             c = "臺北市"
                         elif "新北" in event.message.text:
-                            a = 15
+                            count = 15
                             c = "新北市"
                         elif "桃園" in event.message.text:
-                            a = 30
+                            count = 30
                             c = "桃園市"
                         elif "台中" in event.message.text or "臺中" in event.message.text:
-                            a = 45
+                            count = 45
                             c = "臺中市"
                         elif "台南" in event.message.text or "臺南" in event.message.text:
-                            a = 60
+                            count = 60
                             c = "臺南市"
                         elif "高雄" in event.message.text:
-                            a = 75
+                            count = 75
                             c = "高雄市"
                         elif "基隆" in event.message.text:
-                            a = 90
+                            count = 90
                             c = "基隆市"
                         elif "新竹縣" in event.message.text:
-                            a = 105
+                            count = 105
                             c = "新竹縣"
                         elif "新竹市" in event.message.text:
-                            a = 120
+                            count = 120
                             c = "新竹市市"
                         elif "苗栗" in event.message.text:
-                            a = 135
+                            count = 135
                             c = "苗栗縣"
                         elif "彰化" in event.message.text:
-                            a = 150
+                            count = 150
                             c = "彰化縣"
                         elif "南投" in event.message.text:
-                            a = 165
+                            count = 165
                             c = "南投縣"
                         elif "雲林" in event.message.text:
-                            a = 180
+                            count = 180
                             c = "雲林縣"
                         elif "嘉義縣" in event.message.text:
-                            a = 195
+                            count = 195
                             c = "嘉義縣"
                         elif "嘉義市" in event.message.text:
-                            a = 210
+                            count = 210
                             c = "嘉義市"
                         elif "屏東" in event.message.text:
-                            a = 225
+                            count = 225
                             c = "屏東縣"
                         elif "宜蘭" in event.message.text:
-                            a = 240
+                            count = 240
                             c = "宜蘭縣"
                         elif "花蓮" in event.message.text:
-                            a = 255
+                            count = 255
                             c = "花蓮縣"
                         elif "台東" in event.message.text or "臺東" in event.message.text:
-                            a = 270
+                            count = 270
                             c = "臺東縣"
                         elif "澎湖" in event.message.text:
-                            a = 285
+                            count = 285
                             c = "澎湖縣"
                         elif "金門" in event.message.text:
-                            a = 300
+                            count = 300
                             c = "金門縣"
                         elif "連江" in event.message.text or "馬祖" in event.message.text:
-                            a = 315
+                            count = 315
                             c = "連江縣"
-                        b = c + "的天氣是" + obs_values2[a].firstChild.nodeValue
+                        b = c + "的天氣是" w_values[count].firstChild.nodeValue
                     else:
                         b = event.message.text
                     line_bot_api.reply_message(
