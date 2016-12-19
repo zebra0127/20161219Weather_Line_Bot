@@ -25,13 +25,13 @@ def callback(request):
 
         k = "http://opendata.cwb.gov.tw/opendataapi?dataid=F-C0032-001&authorizationkey=CWB-9C36ED08-5B28-4D07-8B91-2664777A075D"
         res = requests.get(k)
-
+        a = "123"
         for event in events:
             if isinstance(event, MessageEvent):
                 if isinstance(event.message, TextMessage):
                     line_bot_api.reply_message(
                         event.reply_token,
-                        TextSendMessage(text=event.message.text)
+                        TextSendMessage(text=a)#event.message.text)
                     )
 
         return HttpResponse()
