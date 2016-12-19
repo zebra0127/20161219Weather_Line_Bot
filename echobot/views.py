@@ -24,21 +24,21 @@ def callback(request):
             return HttpResponseForbidden()
         except LineBotApiError:
             return HttpResponseBadRequest()
-        count = 60
-        reply = ""
-        city = "臺南市"
+        count = 60  #此處初始化個變數為"臺南市"的預設值，count為xml檔分割後的index值
+        reply = ""  #reply紀錄回傳值
+        city = "臺南市"  #city記錄哪個縣市
         try:
             url_str = 'http://opendata.cwb.gov.tw/opendataapi?dataid=F-C0032-001&authorizationkey=CWB-9C36ED08-5B28-4D07-8B91-2664777A075D'
-            xml_str = urlopen(url_str).read()
+            xml_str = urlopen(url_str).read()  #urlopen將氣象局網址之xml檔讀入
             xmldoc = minidom.parseString(xml_str)
-            w_values = xmldoc.getElementsByTagName('parameterName')
+            w_values = xmldoc.getElementsByTagName('parameterName')  #將檔案內容用parameterName此Tag分割
         except:
             pass
         for event in events:
             if isinstance(event, MessageEvent):
                 if isinstance(event.message, TextMessage):
-                    if "天氣" in event.message.text:
-                        if "臺北" in event.message.text or "台北" in event.message.text:
+                    if "天氣" in event.message.text:  #判斷若使用者問話中有天氣
+                        if "臺北" in event.message.text or "台北" in event.message.text:  #以下判斷若使用者問話中有縣市，則設定count值
                             count = 0
                             city = "臺北市"
                         elif "新北" in event.message.text:
@@ -104,7 +104,7 @@ def callback(request):
                         elif "連江" in event.message.text or "馬祖" in event.message.text:
                             count = 315
                             city = "連江縣"
-                        reply = city + "的天氣是" + w_values[count].firstChild.nodeValue
+                        reply = city + "的天氣是" + w_values[count].firstChild.nodeValue  #根據count直抓出所求縣市之天氣
                     else:
                         reply = event.message.text
                     line_bot_api.reply_message(

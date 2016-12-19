@@ -1,33 +1,34 @@
-# django linebot example
+# Weaher Line Bot
 
-A django implementation of new [Line Message API](https://devdocs.line.me/en/#messaging-api) using [line-bot-sdk-python](https://github.com/line/line-bot-sdk-python)
+[Line Message API](https://devdocs.line.me/en/#messaging-api) using [line-bot-sdk-python](https://github.com/line/line-bot-sdk-python).
 
 ## Setup
 
-### Secret Data
-You MUST setup the following variables.
+### Register
+Go to Line [Business Center](https://business.line.me/zh-hant/).
 
-- SECRET\_KEY
-	- django secret key. You can generate using [Django secret key generator](https://gist.github.com/mattseymour/9205591)	
-- LINE\_CHANNEL\_SECRET
-- LINE\_CHANNEL\_ACCESS\_TOKEN
-
-There are two way to set these variables  
-1. Set these variables in `line_echobot/line_echobot/settings_secret.py`(Exactly the same name)  
-2. Add these variables to environment variables. (`settings_secret.py` is loaded first)
 
 ### HTTPS Server
-You'll need a https server.  
-[Heroku](https://www.heroku.com) can serve this for you.  
-All the needed settings for heroku are set in this repo.
+I use [Heroku](https://www.heroku.com) as a server .
+Get an account and create a project.
 
-Otherwise, you can also build your own https server.
+Then open terminal
+$ heroku login
+$ heroku git:clone -a "your heroku project name"
+$ cd "your heroku project name"
+
+Then put all these file into the directory.
+
+Then, after putting all these file into the directory.
+$ git add .
+$ git commit -am "make it better"
+$ git push heroku master
 
 ### Set Webhook URL
 Set webhook url on your `LINE Developers` page to `https://"your domain name"/echobot/callback/`
 
-## Authors
-[Lee-W](https://github.com/Lee-W)
+### Remember
+Set these three variables. 1. SECRET_KEY 2. LINE_CHANNEL_ACCESS_TOKEN 3. LINE_CHANNEL_SECRET
 
-## License
-MIT
+You can do it by: 1. Set in your Heroku project's setting page. 2. Set in weather_bot/settings_secret.py.
+
