@@ -24,12 +24,12 @@ def callback(request):
             return HttpResponseForbidden()
         except LineBotApiError:
             return HttpResponseBadRequest()
-        count = 60
+        count = 60  #此宣告並處初始化，將各參數初始為"臺南市"的參數
         reply = ""
         city = "臺南市"
         try:
             url_str = 'http://opendata.cwb.gov.tw/opendataapi?dataid=F-C0032-001&authorizationkey=CWB-9C36ED08-5B28-4D07-8B91-2664777A075D'
-            xml_str = urlopen(url_str).read()
+            xml_str = urlopen(url_str).read()  #讀出
             xmldocity = minidom.parseString(xml_str)
             w_values = xmldoc.getElementsByTagName('parameterName')
         except:
@@ -109,7 +109,7 @@ def callback(request):
                         reply = event.message.text
                     line_bot_api.reply_message(
                         event.reply_token,
-                        TextSendMessage(text=b)#event.message.text)
+                        TextSendMessage(text=reply)#event.message.text)
                     )
 
         return HttpResponse()
