@@ -31,7 +31,7 @@ def callback(request):
             url_str = 'http://opendata.cwb.gov.tw/opendataapi?dataid=F-C0032-001&authorizationkey=CWB-9C36ED08-5B28-4D07-8B91-2664777A075D'
             xml_str = urlopen(url_str).read()
             xmldoc = minidom.parseString(xml_str)
-            obs_values2 = xmldoc.getElementsByTagName('parameterName')
+            w_values = xmldoc.getElementsByTagName('parameterName')
         except:
             pass
         for event in events:
@@ -104,7 +104,7 @@ def callback(request):
                         elif "連江" in event.message.text or "馬祖" in event.message.text:
                             a = 315
                             c = "連江縣"
-                        b = c + "的天氣是" + obs_values2[a].firstChild.nodeValue
+                        b = c + "的天氣是" + w_values[a].firstChild.nodeValue
                     else:
                         b = event.message.text
                     line_bot_api.reply_message(
