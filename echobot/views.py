@@ -24,25 +24,69 @@ def callback(request):
             return HttpResponseForbidden()
         except LineBotApiError:
             return HttpResponseBadRequest()
-        a = "123"
+        a = 60
+        b = "123"
         try:
             url_str = 'http://opendata.cwb.gov.tw/opendataapi?dataid=F-C0032-001&authorizationkey=CWB-9C36ED08-5B28-4D07-8B91-2664777A075D'
             xml_str = urlopen(url_str).read()
-            a = "456"
             xmldoc = minidom.parseString(xml_str)
-            a = "789"
-            obs_values1 = xmldoc.getElementsByTagName('locationName')
-            a = "012"
             obs_values2 = xmldoc.getElementsByTagName('parameterName')
-            a = obs_values2[0].firstChild.nodeValue
+            b = "456"
         except:
             pass
         for event in events:
             if isinstance(event, MessageEvent):
                 if isinstance(event.message, TextMessage):
+                    if "天氣" in event.message.text:
+                        if "臺北" in event.message.text or "台北" in event.message.text:
+                            a = 0
+                        elif "新北" in event.message.text:
+                            a = 15
+                        elif "桃園" in event.message.text:
+                            a = 30
+                        elif "台中" in event.message.text or "臺中" in event.message.text:
+                            a = 45
+                        elif "台南" in event.message.text or "臺南" in event.message.text:
+                            a = 60
+                        elif "高雄" in event.message.text:
+                            a = 75
+                        elif "基隆" in event.message.text:
+                            a = 90
+                        elif "新竹縣" in event.message.text:
+                            a = 105
+                        elif "新竹市" in event.message.text:
+                            a = 120
+                        elif "苗栗" in event.message.text:
+                            a = 135
+                        elif "彰化" in event.message.text:
+                            a = 150
+                        elif "南投" in event.message.text:
+                            a = 165
+                        elif "雲林" in event.message.text:
+                            a = 180
+                        elif "嘉義縣" in event.message.text:
+                            a = 195
+                        elif "嘉義市" in event.message.text:
+                            a = 210
+                        elif "屏東" in event.message.text:
+                            a = 225
+                        elif "宜蘭" in event.message.text:
+                            a = 240
+                        elif "花蓮" in event.message.text:
+                            a = 255
+                        elif "台東" in event.message.text or "臺東" in event.message.text:
+                            a = 270
+                        elif "澎湖" in event.message.text:
+                            a = 285
+                        elif "金門" in event.message.text:
+                            a = 300
+                        elif "連江" in event.message.text or "馬祖" in event.message.text:
+                            a = 315
+                        b = obs_values2[a].firstChild.nodeValue
+
                     line_bot_api.reply_message(
                         event.reply_token,
-                        TextSendMessage(text=a)#event.message.text)
+                        TextSendMessage(text=b)#event.message.text)
                     )
 
         return HttpResponse()
