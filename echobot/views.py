@@ -31,9 +31,10 @@ def callback(request):
             a = "456"
             xmldoc = minidom.parseString(xml_str)
             a = "789"
-            obs_values = xmldoc.getElementsByTagName('locationName')
+            obs_values1 = xmldoc.getElementsByTagName('locationName')
             a = "012"
-            a = obs_values[0].firstChild.nodeValue
+            obs_values2 = xmldoc.getElementsByTagName('parameterName')
+            a = obs_values2[0].firstChild.nodeValue
         except:
             pass
         for event in events:
