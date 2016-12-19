@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbid
 from django.views.decorators.csrf import csrf_exempt
 from xml.dom import minidom
 import urllib
+from urllib.request import urlopen
 from linebot import LineBotApi, WebhookParser
 from linebot.exceptions import InvalidSignatureError, LineBotApiError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
@@ -26,7 +27,7 @@ def callback(request):
         a = "123"
         try:
             url_str = 'http://opendata.cwb.gov.tw/opendataapi?dataid=F-C0032-001&authorizationkey=CWB-9C36ED08-5B28-4D07-8B91-2664777A075D'
-            xml_str = urllib.urlopen(url_str).read()
+            xml_str = urlopen(url_str)
             a = "456"
             xmldoc = minidom.parseString(xml_str)
             a = "789"
